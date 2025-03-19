@@ -1,0 +1,41 @@
+org: iaintgotone
+app: whatever
+service: serverless-project
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  environment:
+    DB_HOST: mydb.abcdefghijkl.us-east-1.rds.amazonaws.com
+    DB_USER: admin
+    DB_PASSWORD: secret123
+    DB_NAME: contacts_db
+
+functions:
+  createContact:
+    handler: handler.createContact
+    events:
+      - httpApi:
+          path: /contacts
+          method: post
+
+  getContact:
+    handler: handler.getContact
+    events:
+      - httpApi:
+          path: /contacts/{id}
+          method: get
+
+  updateContact:
+    handler: handler.updateContact
+    events:
+      - httpApi:
+          path: /contacts/{id}
+          method: put
+
+  deleteContact:
+    handler: handler.deleteContact
+    events:
+      - httpApi:
+          path: /contacts/{id}
+          method: delete
